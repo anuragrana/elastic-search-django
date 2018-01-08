@@ -14,3 +14,16 @@ class QuestionsIndex(DocType):
     class Meta:
         # name of index. Will be used in search
         index = 'questions-index'
+
+
+class MovieinfoIndex(DocType):
+    title = Text()
+    director = Text()
+    pub_date = Date()
+    actor = Text()
+    image_urls = Text()
+    userRating = Text()
+    
+    class Meta:
+        # name of index. Will be used in search
+        index = 'movieinfo-index'
