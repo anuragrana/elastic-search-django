@@ -2,6 +2,7 @@ import json
 import urllib.request
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Movie_info
 
 
 def search(request):
@@ -26,9 +27,18 @@ def search(request):
             items = result.get('items')
             print(result)
 
+            movie_info = Movie_info(
+                title = items[0]['title'],
+                image_urls = items[0]['image'],
+                pub_date = items[0]['pubDate'],
+                director = items[0]['director'],
+                actor = items[0]['actor'],
+                userRating = items[0]['userRating'],)
+            movie_info.save()
+                
             context = {
                 'items':items
             }
-            
+
 
             return render(request, 'search/search.html', context=context)

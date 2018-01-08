@@ -25,12 +25,12 @@ class Question(models.Model):
 class Movie_info(models.Model):
   image_urls = models.CharField(max_length= 200)
   title = models.CharField(max_length= 100)
-  pub_date = models.DateTimeField('date published')
+  pub_date = models.IntegerField()
   director =models.CharField(max_length= 100)
   actor = models.CharField(max_length= 100)
   userRating = models.CharField(max_length = 10)
 
-  def MovieinfoIndex(self):
+  def indexing(self):
     obj = MovieinfoIndex(
       meta = {
         'id':self.id
