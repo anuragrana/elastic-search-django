@@ -1,4 +1,4 @@
-#Django와 ELK STACK을 이용한 빅데이터 분석을 해보자
+# **Django와 ELK STACK을 이용한 빅데이터 분석을 해보자**
 
 저의 환경이 Mac os이기 때문에 Mac을 기준으로 개발하겠습니다.
 
