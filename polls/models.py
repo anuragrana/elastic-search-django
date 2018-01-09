@@ -1,6 +1,6 @@
 from django.db import models
 from .elastic_search_connection import QuestionsIndex, MovieinfoIndex
-
+from django.db.models import signals
 
 class Question(models.Model):
     author = models.CharField(max_length=100)
@@ -25,23 +25,23 @@ class Question(models.Model):
 class Movie_info(models.Model):
   image_urls = models.CharField(max_length= 200)
   title = models.CharField(max_length= 100)
-  pub_date = models.IntegerField()
+  pub_date = models.CharField(max_length= 200)
   director =models.CharField(max_length= 100)
   actor = models.CharField(max_length= 100)
   userRating = models.CharField(max_length = 10)
 
-  def indexing(self):
-    obj = MovieinfoIndex(
+  def indexing(**movie):
+    movieinfoindex = MovieinfoIndex(
       meta = {
         'id':self.id
       },
       title = self.title,
-      pub_date = self.pub_date,
       director = self.director,
+      pub_date = self.pub_date,
       actor = self.actor,
       image_urls = self.image_urls,
       userRating = self.userRating
-      )
+    )
 
-    obj.save()
-    return obj.to_dict(include_meta=True)
+    movieinfoindex.save()
+    return movieinfoindex.to_dict(include_meta=True)

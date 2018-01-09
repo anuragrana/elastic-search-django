@@ -41,4 +41,4 @@ def search(request):
             }
 
 
-            return render(request, 'search/search.html', context=context)
+            return render(request, 'search/index.html', context=context)

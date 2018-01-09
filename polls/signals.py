@@ -7,6 +7,7 @@ from django.dispatch import receiver
 def index_question(sender, instance, **kwargs):
     instance.indexing()
 
-@receiver(post_save, sender=Movie_info)
-def index_movie_info(sender, instance, **kwargs):
-	instance.indexing()
+
+
+
+

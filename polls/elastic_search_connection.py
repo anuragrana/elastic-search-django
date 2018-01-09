@@ -5,6 +5,18 @@ from elasticsearch_dsl import DocType, Text, Date
 connections.create_connection()
 
 
+class MovieinfoIndex(DocType):
+    title = Text()
+    director = Text()
+    pub_date = Text()
+    actor = Text()
+    image_urls = Text()
+    userRating = Text()
+
+    class Meta:
+        # name of index. Will be used in search
+        index = 'movieinfo-index'
+
 # defines what needs to index in elastic search
 class QuestionsIndex(DocType):
     author = Text()
@@ -16,14 +28,3 @@ class QuestionsIndex(DocType):
         index = 'questions-index'
 
 
-class MovieinfoIndex(DocType):
-    title = Text()
-    director = Text()
-    pub_date = Date()
-    actor = Text()
-    image_urls = Text()
-    userRating = Text()
-    
-    class Meta:
-        # name of index. Will be used in search
-        index = 'movieinfo-index'
