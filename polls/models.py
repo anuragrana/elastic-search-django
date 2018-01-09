@@ -27,3 +27,23 @@ class Movie_info(models.Model):
 
     movieinfoindex.save()
     return movieinfoindex.to_dict(include_meta=True)
+
+
+
+class Movie_search(models.Model):
+
+  title = models.CharField(max_length = 100)
+
+
+  def indexing(self):
+
+    movieinfosearch = MoviesearchIndex(
+      meta = {
+        'id' : self.id
+      },
+      title = self.title
+    )
+
+    movieinfosearch.save()
+
+    return movieinfosearch.to_dict(include_meta=True)

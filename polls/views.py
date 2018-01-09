@@ -2,7 +2,7 @@ import json
 import urllib.request
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Movie_info
+from .models import Movie_info, Movie_search
 
 
 def search(request):
@@ -42,3 +42,16 @@ def search(request):
             }
 
             return render(request, 'search/index.html', context=context)
+
+def detail(request, title):
+
+    movie_search = Movie_search(
+        title = title,
+        )
+
+    movie_search.save()
+
+    return render(request, 'search/index.html')
+
+
+

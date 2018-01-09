@@ -18,4 +18,10 @@ class MovieinfoIndex(DocType):
         index = 'movieinfo-index'
 
 
+class MoviesearchIndex(DocType):
+	title = Text()
 
+
+	class Meta:
+
+		index = 'moviesearch-index'
