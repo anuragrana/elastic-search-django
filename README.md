@@ -37,6 +37,8 @@ Django 설치 완료~~~
 
 ### elasticsearch 설치
 
+5.6 버전을 설치하셔야 수월합니다. elasticsearch와 kibana 모두 5.6버전을 설치해주세요. 
+
 https://www.elastic.co/downloads/elasticsearch
 
 위 사이트에서 tar 파일을 다운 받으시고 아래처럼 압축을 풀어주세요

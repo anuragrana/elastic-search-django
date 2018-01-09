@@ -34,8 +34,9 @@ def search(request):
                 director = items[0]['director'],
                 actor = items[0]['actor'],
                 userRating = items[0]['userRating'],)
+            
             movie_info.save()
-                
+
             context = {
                 'items':items
             }
