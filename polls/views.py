@@ -92,11 +92,11 @@ def searchproduct(request):
 
         q = request.GET.get('q')
 
-        book_search = Book_search(
+        product_search = Product_search(
             keyword = q,
             )
 
-        book_search.save()
+        product_search.save()
 
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/shop?query=" + encText #json 결과
@@ -111,7 +111,7 @@ def searchproduct(request):
             result = json.loads(response_body.decode('utf-8'))
             items = result.get('items')
             #print(result)
-            
+
             context = {
                     'items':items
             }

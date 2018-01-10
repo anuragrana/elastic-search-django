@@ -1,20 +1,21 @@
 {% extends "search/base.html" %}
 
 {% block content %}
+{% load staticfiles %}
     <!-- Masthead -->
     <header class="masthead text-white text-center">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5"> 정보를 알고 싶은 영화 제목을 검색해보세요!</h1>
+            <h1 class="mb-5"> 정보를 알고 싶은 제품을 검색해보세요!</h1>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
             <form>
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <form action="{% url 'polls:api_search' %}" method="GET">       
-                    <input type="text" name="q" class="form-control form-control-lg" placeholder="Movie">
+                  <form action="{% url 'polls:api_search_product' %}" method="GET">       
+                    <input type="text" name="q" class="form-control form-control-lg" placeholder="Product..">
                 </div>
                 <div class="col-12 col-md-3">
                   <button type="submit" class="btn btn-block btn-lg btn-primary">Search</button>
@@ -27,25 +28,25 @@
       </div>
     </header>
 
-    <!-- Icons Grid -->
+   <!-- Icons Grid -->
     <section class="features-icons bg-light text-center">
       <div class="container">
-       <div class="row">
+        <div class="row">
           <div class="col-lg-4">
             <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                <i><img class="img-fluid rounded-circle mb-3" src="{% static 'img/movie.jpg' %}" alt=""></i>
+                <a href="/search"><i><img class="img-fluid rounded-circle mb-3" src="{% static 'img/movie.jpg' %}" alt=""></i></a>
               <h2>MOVIE</h2>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                <i><img class="img-fluid rounded-circle mb-3" src="{% static 'img/books.jpg' %}" alt=""></i>
+                <a href="/searchbook"><i><img class="img-fluid rounded-circle mb-3" src="{% static 'img/books.jpg' %}" alt=""></i></a>
               <h2>BOOK</h2>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                <i><img class="img-fluid rounded-circle mb-3" src="{% static 'img/shopping.jpg' %}" alt=""></i>
+                <a href="/searchproduct"><i><img class="img-fluid rounded-circle mb-3" src="{% static 'img/shopping.jpg' %}" alt=""></i></a>
               <h2>SHOPPING</h2>
             </div>
           </div>
