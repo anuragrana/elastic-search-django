@@ -2,7 +2,7 @@ import json
 import urllib.request
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Movie_search, Book_search # Movie_info,
+from .models import Movie_search, Book_search, Product_search # Movie_info,
 
 
 def search(request):
@@ -82,6 +82,40 @@ def searchbook(request):
             }
 
             return render(request, 'search/searchbook.html', context=context)
+
+
+def searchbook(request):
+
+    if request.method == 'GET':
+        client_id = "DshukL7WQcANLYUiQTsY"
+        client_secret = "p5RxLlzjyJ"
+
+        q = request.GET.get('q')
+
+        book_search = Book_search(
+            keyword = q,
+            )
+
+        book_search.save()
+
+        encText = urllib.parse.quote("{}".format(q))
+        url = "https://openapi.naver.com/v1/search/shop?query=" + encText #json 결과
+        movie_api_request = urllib.request.Request(url)
+        movie_api_request.add_header("X-Naver-Client-Id", client_id)
+        movie_api_request.add_header("X-Naver-Client-Secret", client_secret)
+        response = urllib.request.urlopen(movie_api_request)
+        rescode = response.getcode()
+
+        if (rescode == 200):
+            response_body = response.read()
+            result = json.loads(response_body.decode('utf-8'))
+            items = result.get('items')
+            #print(result)
+            context = {
+                    'items':items
+            }
+
+            return render(request, 'search/searchproduct.html', context=context)
 
 
 

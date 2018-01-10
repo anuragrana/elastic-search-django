@@ -1,5 +1,5 @@
 from django.db import models
-from .elastic_search_connection import MoviesearchIndex, BooksearchIndex #MovieinfoIndex
+from .elastic_search_connection import MoviesearchIndex, BooksearchIndex, ProductsearchIndex #MovieinfoIndex
 from django.db.models import signals
 
 
@@ -67,4 +67,23 @@ class Book_search(models.Model):
     bookinfosearch.save()
 
     return bookinfosearch.to_dict(include_meta=True)
+
+
+class Product_search(models.Model):
+
+  keyword = models.CharField(max_length = 100, null=True)
+
+
+  def indexing(self):
+
+    productinfosearch = ProductsearchIndex(
+      meta = {
+        'id' : self.id
+      },
+      keyword = self.keyword
+    )
+
+    productinfosearch.save()
+
+    return productinfosearch.to_dict(include_meta=True)
 
