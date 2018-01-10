@@ -1,5 +1,5 @@
 from django.db import models
-from .elastic_search_connection import MoviesearchIndex #MovieinfoIndex
+from .elastic_search_connection import MoviesearchIndex, BooksearchIndex #MovieinfoIndex
 from django.db.models import signals
 
 
@@ -47,6 +47,7 @@ class Movie_search(models.Model):
     movieinfosearch.save()
 
     return movieinfosearch.to_dict(include_meta=True)
+
 
 
 class Book_search(models.Model):

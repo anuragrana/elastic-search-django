@@ -58,11 +58,25 @@ def searchbook(request):
 
         q = request.GET.get('q')
 
-        book
+        book_search = Book_search(
+            keyword = q,
+            )
 
+        book_search.save()
 
+        encText = urllib.parse.quote("{}".format(q))
+        url = "https://openapi.naver.com/v1/search/book?query=" + encText #json 결과
+        movie_api_request = urllib.request.Request(url)
+        movie_api_request.add_header("X-Naver-Client-Id", client_id)
+        movie_api_request.add_header("X-Naver-Client-Secret", client_secret)
+        response = urllib.request.urlopen(movie_api_request)
+        rescode = response.getcode()
 
+        context = {
+                'items':items
+        }
 
+        return render(request, 'search/searchbook.html', context=context)
 
 
 

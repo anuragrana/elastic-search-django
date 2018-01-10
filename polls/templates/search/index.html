@@ -103,7 +103,7 @@
 
           <div class="col-lg-6 order-lg-2 text-white showcase-image"><img src="{{item.image}}" alt="" width="264" height="360"></div>
           <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-            <h2>{{ item.title|safe }}</h2>
+            <h2>{{forloop.counter}}. {{ item.title|safe }}</h2>
             <p class="lead mb-0">{{item.pubDate}}<br> 감독 : {{ item.director }}<br> 출연 배우 : {{ item.actor }}<br> 평점 : {{ item.userRating }}<br><br>
             <div class="col-12 col-md-3 ">
               <a type = "button" href="{{item.link}}" class="btn btn-block btn-lg btn-primary">Detail</a>
