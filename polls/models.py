@@ -32,7 +32,7 @@ from django.db.models import signals
 
 class Movie_search(models.Model):
 
-  keyword = models.CharField(max_length = 100)
+  keyword = models.CharField(max_length = 100, null=True)
 
 
   def indexing(self):
@@ -52,7 +52,7 @@ class Movie_search(models.Model):
 
 class Book_search(models.Model):
 
-  keyword = models.CharField(max_length = 100)
+  keyword = models.CharField(max_length = 100, null=True)
 
 
   def indexing(self):

@@ -31,4 +31,4 @@ class BooksearchIndex(DocType):
 
 
 	class Meta:
-		index = 'Booksearch-index'
+		index = 'booksearch-index'

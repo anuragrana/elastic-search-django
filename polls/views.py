@@ -32,7 +32,7 @@ def search(request):
             response_body = response.read()
             result = json.loads(response_body.decode('utf-8'))
             items = result.get('items')
-            print(result)
+            #print(result)
 
             #movie_info = Movie_info(
             #    title = items[0]['title'],
@@ -72,11 +72,16 @@ def searchbook(request):
         response = urllib.request.urlopen(movie_api_request)
         rescode = response.getcode()
 
-        context = {
-                'items':items
-        }
+        if (rescode == 200):
+            response_body = response.read()
+            result = json.loads(response_body.decode('utf-8'))
+            items = result.get('items')
+            #print(result)
+            context = {
+                    'items':items
+            }
 
-        return render(request, 'search/searchbook.html', context=context)
+            return render(request, 'search/searchbook.html', context=context)
 
 
 
