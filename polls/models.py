@@ -33,6 +33,7 @@ from django.db.models import signals
 class Movie_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
+  date = models.DateField(auto_now_add=True)
 
 
   def indexing(self):
@@ -41,7 +42,8 @@ class Movie_search(models.Model):
       meta = {
         'id' : self.id
       },
-      keyword = self.keyword
+      keyword = self.keyword,
+      date = self.date
     )
 
     movieinfosearch.save()
@@ -53,6 +55,7 @@ class Movie_search(models.Model):
 class Book_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
+  date =models.DateField(auto_now_add=True)
 
 
   def indexing(self):
@@ -61,7 +64,8 @@ class Book_search(models.Model):
       meta = {
         'id' : self.id
       },
-      keyword = self.keyword
+      keyword = self.keyword,
+      date = self.date
     )
 
     bookinfosearch.save()
@@ -72,6 +76,7 @@ class Book_search(models.Model):
 class Product_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
+  date =models.DateField(auto_now_add=True)
 
 
   def indexing(self):
@@ -80,7 +85,8 @@ class Product_search(models.Model):
       meta = {
         'id' : self.id
       },
-      keyword = self.keyword
+      keyword = self.keyword,
+      date = self.date
     )
 
     productinfosearch.save()

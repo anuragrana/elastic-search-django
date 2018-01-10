@@ -20,7 +20,7 @@ connections.create_connection()
 
 class MoviesearchIndex(DocType):
 	keyword = Text()
-
+	date = Date()
 
 	class Meta:
 		index = 'moviesearch-index'
@@ -28,7 +28,7 @@ class MoviesearchIndex(DocType):
 
 class BooksearchIndex(DocType):
 	keyword = Text()
-
+	date = Date()
 
 	class Meta:
 		index = 'booksearch-index'
@@ -36,7 +36,7 @@ class BooksearchIndex(DocType):
 
 class ProductsearchIndex(DocType):
 	keyword = Text()
-
+	date = Date()
 
 	class Meta:
 		index = 'productsearch-index'
