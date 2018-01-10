@@ -19,9 +19,16 @@ class MovieinfoIndex(DocType):
 
 
 class MoviesearchIndex(DocType):
-	title = Text()
+	keyword = Text()
 
 
 	class Meta:
-
 		index = 'moviesearch-index'
+
+
+class BooksearchIndex(DocType):
+	keyword = Text()
+
+
+	class Meta:
+		index = 'Booksearch-index'

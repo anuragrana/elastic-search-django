@@ -30,7 +30,7 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="#">Movie Search</a>
-        <a class="btn btn-primary" href="#">search</a>
+        <a class="btn btn-primary" href="searchbook/">Book</a>
       </div>
     </nav>
 
@@ -105,11 +105,9 @@
           <div class="col-lg-6 order-lg-1 my-auto showcase-text">
             <h2>{{ item.title|safe }}</h2>
             <p class="lead mb-0">{{item.pubDate}}<br> 감독 : {{ item.director }}<br> 출연 배우 : {{ item.actor }}<br> 평점 : {{ item.userRating }}<br><br>
-            <form action = "{% url 'polls.detail' pk = item.title %}" method = "post" >
             <div class="col-12 col-md-3 ">
-              <button type = "submit" href="{{item.link}}" class="btn btn-block btn-lg btn-primary">Detail</button>
+              <a type = "button" href="{{item.link}}" class="btn btn-block btn-lg btn-primary">Detail</a>
             </div>
-          </form>
             </p>
           </div>
 

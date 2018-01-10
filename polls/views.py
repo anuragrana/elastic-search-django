@@ -2,7 +2,7 @@ import json
 import urllib.request
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Movie_info, Movie_search
+from .models import Movie_search, Book_search # Movie_info,
 
 
 def search(request):
@@ -13,6 +13,13 @@ def search(request):
         client_secret = "p5RxLlzjyJ"
 
         q = request.GET.get('q')
+
+        movie_search = Movie_search(
+        keyword = q,
+        )
+
+        movie_search.save()
+
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/movie?query=" + encText #json 결과
         movie_api_request = urllib.request.Request(url)
@@ -27,15 +34,15 @@ def search(request):
             items = result.get('items')
             print(result)
 
-            movie_info = Movie_info(
-                title = items[0]['title'],
-                image_urls = items[0]['image'],
-                pub_date = items[0]['pubDate'],
-                director = items[0]['director'],
-                actor = items[0]['actor'],
-                userRating = items[0]['userRating'],)
+            #movie_info = Movie_info(
+            #    title = items[0]['title'],
+            #    image_urls = items[0]['image'],
+            #    pub_date = items[0]['pubDate'],
+            #    director = items[0]['director'],
+            #    actor = items[0]['actor'],
+            #    userRating = items[0]['userRating'],)
 
-            movie_info.save()
+            #movie_info.save()
 
             context = {
                 'items':items
@@ -43,15 +50,20 @@ def search(request):
 
             return render(request, 'search/index.html', context=context)
 
-def detail(request, title):
+def searchbook(request):
 
-    movie_search = Movie_search(
-        title = title,
-        )
+    if request.method == 'GET':
+        client_id = "DshukL7WQcANLYUiQTsY"
+        client_secret = "p5RxLlzjyJ"
 
-    movie_search.save()
+        q = request.GET.get('q')
 
-    return render(request, 'search/index.html')
+        book
+
+
+
+
+
 
 
 
