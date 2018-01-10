@@ -84,7 +84,7 @@ def searchbook(request):
             return render(request, 'search/searchbook.html', context=context)
 
 
-def searchbook(request):
+def searchproduct(request):
 
     if request.method == 'GET':
         client_id = "DshukL7WQcANLYUiQTsY"
@@ -111,6 +111,7 @@ def searchbook(request):
             result = json.loads(response_body.decode('utf-8'))
             items = result.get('items')
             #print(result)
+            
             context = {
                     'items':items
             }
