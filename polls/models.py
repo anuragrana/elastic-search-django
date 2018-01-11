@@ -32,8 +32,8 @@ class User(models.Model):
     email = models.CharField(max_length=40)
     age = models.IntegerField()
     sex = models.CharField(max_length=5)
-    password = models.CharField(max_length=40, default=' ')
-    Lastsearch= models.CharField(max_length=40, default='')
+    password = models.CharField(max_length=40, default='')
+    lastsearch = models.CharField(max_length=40, null = True)
 
     
     def __str__(self):
@@ -43,8 +43,8 @@ class Movie_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
   date = models.DateField(default=timezone.now, blank=True)
-  age = models.IntegerField()
-  sex = models.CharField(max_length=5)
+  age = models.IntegerField(null = True)
+  sex = models.CharField(max_length=5, null = True)
 
 
   def indexing(self):
@@ -69,8 +69,8 @@ class Book_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
   date =models.DateField(auto_now=True)
-  age = models.IntegerField()
-  sex = models.CharField(max_length=5)
+  age = models.IntegerField(null = True)
+  sex = models.CharField(max_length=5,  null = True)
 
   def indexing(self):
 
@@ -93,8 +93,8 @@ class Product_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
   date =models.DateField(auto_now=True)
-  age = models.IntegerField()
-  sex = models.CharField(max_length=5)
+  age = models.IntegerField(null = True)
+  sex = models.CharField(max_length=5, null = True)
 
   def indexing(self):
 

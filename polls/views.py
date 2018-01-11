@@ -2,7 +2,7 @@ import json
 import urllib.request
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Movie_search, Book_search, Product_search # Movie_info,
+from .models import Movie_search, Book_search, Product_search, User # Movie_info,
 
 
 def search(request):
@@ -14,10 +14,20 @@ def search(request):
 
         q = request.GET.get('q')
 
-        movie_search = Movie_search(
-        keyword = q,
-        )
+        userid=request.session['userid']
+        if userid is True:
+            userdata = User.objects.filter(email=userid)
+            userdata.update(Lastproject=q)
 
+            movie_search = Movie_search(
+                keyword = q,
+                age = userdata.age,
+                sex = userdata.sex,
+            )
+        else:
+            movie_search = Movie_search(
+                keyword = q,
+            )
         movie_search.save()
 
         encText = urllib.parse.quote("{}".format(q))
@@ -58,8 +68,21 @@ def searchbook(request):
 
         q = request.GET.get('q')
 
-        book_search = Book_search(
-            keyword = q,
+        if userid is True:
+
+            userid=request.session['userid']
+            userdata = User.objects.filter(email=userid)
+            userdata.update(Lastproject=q)
+          
+            book_search = Book_search(
+                    keyword = q,
+                    age = userdata.age,
+                    sex = userdata.sex,
+                )
+
+        else:
+            book_search = Book_search(
+                keyword = q,
             )
 
         book_search.save()
@@ -92,10 +115,21 @@ def searchproduct(request):
 
         q = request.GET.get('q')
 
-        product_search = Product_search(
-            keyword = q,
-            )
+        if userid is True:
 
+            userid=request.session['userid']
+            userdata = User.objects.filter(email=userid)
+            userdata.update(Lastproject=q)
+
+            product_search = Product_search(
+                keyword = q,
+                age = userdata.age,
+                sex = userdata.sex,
+                )
+        else:
+            product_search = Product_search(
+                keyword = q,
+            )
         product_search.save()
 
         encText = urllib.parse.quote("{}".format(q))
@@ -118,14 +152,17 @@ def searchproduct(request):
 
             return render(request, 'search/searchproduct.html', context=context)
 
-def OpenSigninPage(request):
-    return render(request,'search/index.html')
+def opensigninpage(request):
+    return render(request,'search/LoginPage.html')
 
-def Signup(request) :
+def opensignuppage(request):
+    return render(request,'search/SignUpPage.html')
+
+def signup(request) :
     name=request.POST['name']
     email=request.POST['email']
     age = request.POST['age']
-    sex = request.POST['age']
+    sex = request.POST['sex']
     password=request.POST['password']
     #signuppage.html 에서 POST 방식으로 입력 받은 값을 전송 해주고, 받아오는 코드 
     userdata=User(name = name,email = email, age = age, sex = sex, password = password)
@@ -141,7 +178,7 @@ def Signup(request) :
     return render(request,'search/index.html',userdatas)
 
 
-def Signin(request):
+def signin(request):
     input_email = request.POST.get('email',None)
     input_password=request.POST.get('password',None)
     #signin.html에서 받은 값을 체크하고, 없는경우 None 으로 설정 해줍니다.
@@ -159,10 +196,13 @@ def Signin(request):
             #로그인한 유저를 저장하기 위해 session 에 저장을 해줍니다. 
             # ex ) {'userid' : input_email } 
             try :
-                last_pjname=User.objects.filter(email=input_email).values('Lastproject')
+                last_pjname=User.objects.filter(email=input_email).values('Lastsearch')
             except : 
                 last_pjname=None
-            context=get_lastProject(input_email,last_pjname)
+
+            context = {
+                'check_email' : check_email
+            }
             return render(request,'search/index.html',context)
         
         elif check_password is False : # email 은 일치, password는 불일치
