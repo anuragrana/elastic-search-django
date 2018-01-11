@@ -1,5 +1,5 @@
 from elasticsearch_dsl.connections import connections
-from elasticsearch_dsl import DocType, Text, Date
+from elasticsearch_dsl import DocType, Text, Date, Integer
 
 # creates a global connection to elastic search
 connections.create_connection()
@@ -21,6 +21,8 @@ connections.create_connection()
 class MoviesearchIndex(DocType):
 	keyword = Text()
 	date = Date()
+	age = Integer()
+	sex = Text()
 
 	class Meta:
 		index = 'moviesearch-index'
@@ -29,6 +31,8 @@ class MoviesearchIndex(DocType):
 class BooksearchIndex(DocType):
 	keyword = Text()
 	date = Date()
+	age = Integer()
+	sex = Text()
 
 	class Meta:
 		index = 'booksearch-index'
@@ -37,6 +41,8 @@ class BooksearchIndex(DocType):
 class ProductsearchIndex(DocType):
 	keyword = Text()
 	date = Date()
+	age = Integer()
+	sex = Text()
 
 	class Meta:
 		index = 'productsearch-index'

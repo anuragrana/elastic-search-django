@@ -27,12 +27,24 @@ from django.utils import timezone
  #   movieinfoindex.save()
  #   return movieinfoindex.to_dict(include_meta=True)
 
+class User(models.Model):
+    name = models.CharField(max_length=20)
+    email = models.CharField(max_length=40)
+    age = models.IntegerField()
+    sex = models.CharField(max_length=5)
+    password = models.CharField(max_length=40, default=' ')
+    Lastsearch= models.CharField(max_length=40, default='')
 
+    
+    def __str__(self):
+        return self.name
 
 class Movie_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
   date = models.DateField(default=timezone.now, blank=True)
+  age = models.IntegerField()
+  sex = models.CharField(max_length=5)
 
 
   def indexing(self):
@@ -42,7 +54,9 @@ class Movie_search(models.Model):
         'id' : self.id
       },
       keyword = self.keyword,
-      date = self.date
+      date = self.date,
+      age = self.age,
+      sex = selg.sex,
     )
 
     movieinfosearch.save()
@@ -55,7 +69,8 @@ class Book_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
   date =models.DateField(auto_now=True)
-
+  age = models.IntegerField()
+  sex = models.CharField(max_length=5)
 
   def indexing(self):
 
@@ -64,7 +79,9 @@ class Book_search(models.Model):
         'id' : self.id
       },
       keyword = self.keyword,
-      date = self.date
+      date = self.date,
+      age = self.age,
+      sex = selg.sex,
     )
 
     bookinfosearch.save()
@@ -76,7 +93,8 @@ class Product_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
   date =models.DateField(auto_now=True)
-
+  age = models.IntegerField()
+  sex = models.CharField(max_length=5)
 
   def indexing(self):
 
@@ -85,7 +103,9 @@ class Product_search(models.Model):
         'id' : self.id
       },
       keyword = self.keyword,
-      date = self.date
+      date = self.date,
+      age = self.age,
+      sex = selg.sex,
     )
 
     productinfosearch.save()

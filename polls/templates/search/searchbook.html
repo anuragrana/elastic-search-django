@@ -62,7 +62,7 @@
 
           <div class="col-lg-6 order-lg-2 text-white showcase-image"><img src="{{item.image}}" alt="" width="264" height="360"></div>
           <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-            <h2>{{forloop.counter}}. {{ item.title|safe }}</h2>
+            <h2>{{forloop.counter}}.  {{ item.title|safe }}</h2>
             <p class="lead mb-0">{{item.pubDate}}<br> 저자 : {{ item.author }}<br> 출판사 : {{ item.publisher }}<br> 가격 : {{ item.price }} 원<br><br>
             <div class="col-12 col-md-3 ">
               <a type = "button" href="{{item.link}}" class="btn btn-block btn-lg btn-primary">Detail</a>

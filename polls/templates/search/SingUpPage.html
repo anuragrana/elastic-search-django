@@ -1,0 +1,67 @@
+{% extends "search/base.html" %}
+
+
+{% block content %}
+
+   
+    <div class="entry">
+    <div class="container">
+         <div style = "width: 600px; height: 500px; margin: 140px auto;">   
+    <form class="" action="Signup" method="post">
+      {% csrf_token %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+      <div class="form-group">
+        <label for="exampleInputName1" style="color:#92B3B7">Name</label>
+        <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="name">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1" style="color:#92B3B7">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1" style="color:#92B3B7">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Create a Password" name="password">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputconfirmPassword1" style="color:#92B3B7">Confirm password</label>
+        <input type="password" class="form-control" id="exampleInputconfirmPassword1" placeholder="Confirm Password" name="password_confirm">
+      </div>
+     <button onclick="return check_input()" type="submit" class="btn btn-default"  style = "width: 600px;">sign up</button>
+     
+    <script type="text/javascript">
+    
+    function check_input(){
+    var input_name =document.getElementById("exampleInputName1").value;
+    var input_password=document.getElementById("exampleInputPassword1").value;
+    var input_confirm_passowrd=document.getElementById("exampleInputconfirmPassword1").value;
+    var input_email=document.getElementById("exampleInputEmail1").value;  
+    if(input_name == ""&& input_password == "" && input_email == ""){
+      alert("이름,이메일, 패스워드를 입력해주세요 "); return false;
+    }else if(input_name == "" && input_email == ""){
+      alert("이름과 이메일을 입력해주세요"); return false;
+    }else if(input_name == "" && input_password==""){
+      alert("이름과 패스워드를 입력해주세요"); return false;
+    }else if(input_password == ""&& input_email == ""){
+      alert("패스워드와 이메일을 입력해주세요"); return false;
+    }else if(input_name == ""){
+      alert("이름을 입력해주세요 "); return false;
+    }else if(input_email==""){
+      alert("이메일을 입력해주세요"); return false;
+    }else if(input_password==""){
+      alert("패스워드를 입력해주세요"); return false;
+    }else if(input_password != input_confirm_passowrd){
+      alert("입력한 비밀번호가 서로 다릅니다."); return false;
+    }
+   }
+    
+    </script>
+    
+  </form>
+      </div> 
+    </div>
+    
+     
+  </div>
+{% endblock content %}
