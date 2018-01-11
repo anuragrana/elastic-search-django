@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^searchproduct/$', views.searchproduct, name='api_search_product'),
     url(r'^signinpage/$', views.opensigninpage, name='signinpage'),
     url(r'^signuppage/$', views.opensignuppage, name='signuppage'),
-    url(r'^signin/$', views.signin, name='signinpage'),
-    url(r'^signup/$', views.signup, name='signuppage'),
+    url(r'^signin/$', views.signin, name='signin'),
+    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^signout/$', views.signout, name='signout'),
 ]

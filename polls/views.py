@@ -3,7 +3,9 @@ import urllib.request
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Movie_search, Book_search, Product_search, User # Movie_info,
+from django.contrib import messages
 
+count = True
 
 def search(request):
 
@@ -14,22 +16,32 @@ def search(request):
 
         q = request.GET.get('q')
 
-        userid=request.session['userid']
-        if userid is True:
-            userdata = User.objects.filter(email=userid)
-            userdata.update(Lastproject=q)
+        if count is False:
 
-            movie_search = Movie_search(
-                keyword = q,
-                age = userdata.age,
-                sex = userdata.sex,
-            )
+            
+            userid=request.session['userid']
+
+            if userid is True:
+                userdata = User.objects.filter(email=userid)
+                userdata.update(Lastproject=q)
+
+                movie_search = Movie_search(
+                    keyword = q,
+                    age = userdata.age,
+                    sex = userdata.sex,
+                )
+            else:
+                movie_search = Movie_search(
+                    keyword = q,
+                )
+            movie_search.save()
+
         else:
             movie_search = Movie_search(
-                keyword = q,
-            )
-        movie_search.save()
+                    keyword = q,
+                )
 
+            movie_search.save()
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/movie?query=" + encText #json 결과
         movie_api_request = urllib.request.Request(url)
@@ -68,24 +80,28 @@ def searchbook(request):
 
         q = request.GET.get('q')
 
-        if userid is True:
+        if count is False:
 
             userid=request.session['userid']
-            userdata = User.objects.filter(email=userid)
-            userdata.update(Lastproject=q)
-          
-            book_search = Book_search(
+
+            if userid is True:
+
+                
+                userdata = User.objects.filter(email=userid)
+                userdata.update(Lastproject=q)
+              
+                book_search = Book_search(
+                        keyword = q,
+                        age = userdata.age,
+                        sex = userdata.sex,
+                    )
+
+            else:
+                book_search = Book_search(
                     keyword = q,
-                    age = userdata.age,
-                    sex = userdata.sex,
                 )
 
-        else:
-            book_search = Book_search(
-                keyword = q,
-            )
-
-        book_search.save()
+            book_search.save()
 
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/book?query=" + encText #json 결과
@@ -115,22 +131,25 @@ def searchproduct(request):
 
         q = request.GET.get('q')
 
-        if userid is True:
+        if count is False:
 
             userid=request.session['userid']
-            userdata = User.objects.filter(email=userid)
-            userdata.update(Lastproject=q)
 
-            product_search = Product_search(
-                keyword = q,
-                age = userdata.age,
-                sex = userdata.sex,
+            if userid is True:
+
+                userdata = User.objects.filter(email=userid)
+                userdata.update(Lastproject=q)
+
+                product_search = Product_search(
+                    keyword = q,
+                    age = userdata.age,
+                    sex = userdata.sex,
+                    )
+            else:
+                product_search = Product_search(
+                    keyword = q,
                 )
-        else:
-            product_search = Product_search(
-                keyword = q,
-            )
-        product_search.save()
+            product_search.save()
 
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/shop?query=" + encText #json 결과
@@ -189,19 +208,20 @@ def signin(request):
     
         if check_password is True : # password 도 일치
             
-            projects = Project.objects.all()
+            
             request.session['userid']=input_email
             request.session['flag'] = 0
             #request.session.set_expiry(0)
             #로그인한 유저를 저장하기 위해 session 에 저장을 해줍니다. 
             # ex ) {'userid' : input_email } 
             try :
-                last_pjname=User.objects.filter(email=input_email).values('Lastsearch')
+                Lastsearch=User.objects.filter(email=input_email).values('Lastsearch')
             except : 
-                last_pjname=None
+                Lastsearch=None
 
+            users = User.objects.filter(email=input_email)
             context = {
-                'check_email' : check_email
+                'users' : users
             }
             return render(request,'search/index.html',context)
         
@@ -213,4 +233,13 @@ def signin(request):
     
     userdatas={'email' :input_email,'password':input_password}   
     return render(request,'search/index.html',userdatas)
+
+def signout(request):
+
+     try:
+        del request.session['userid']
+    except KeyError:
+        pass
+
+
 

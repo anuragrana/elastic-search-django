@@ -56,7 +56,7 @@ class Movie_search(models.Model):
       keyword = self.keyword,
       date = self.date,
       age = self.age,
-      sex = selg.sex,
+      sex = self.sex,
     )
 
     movieinfosearch.save()
@@ -81,7 +81,7 @@ class Book_search(models.Model):
       keyword = self.keyword,
       date = self.date,
       age = self.age,
-      sex = selg.sex,
+      sex = self.sex,
     )
 
     bookinfosearch.save()
@@ -105,7 +105,7 @@ class Product_search(models.Model):
       keyword = self.keyword,
       date = self.date,
       age = self.age,
-      sex = selg.sex,
+      sex = self.sex,
     )
 
     productinfosearch.save()

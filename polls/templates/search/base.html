@@ -14,6 +14,7 @@
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
 
+
     <!-- Custom fonts for this template -->
     <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
@@ -45,6 +46,20 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="#">Minjung's Search</a>
+        {% if users %}
+            {% for user in users %}
+
+                {{user.name}}님 환영합니다!!<a type = "button" class="btn btn-primary" href="/signout">Signout</a>
+        
+            {% endfor %}
+
+        {% else %}
+            <a type = "button" class="btn btn-primary" href="/signuppage">SignUp</a>
+            <a type = "button" class="btn btn-primary" href="/signinpage">SignIn</a>
+
+        {% endif %}
+
+
       </div>
     </nav>
 
@@ -57,27 +72,13 @@
  <!-- Testimonials -->
     <section class="testimonials text-center bg-light">
       <div class="container">
-        <h2 class="mb-5">What people are saying...</h2>
+        <h2 class="mb-5">Developer</h2>
         <div class="row">
           <div class="col-lg-4">
-            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img class="img-fluid rounded-circle mb-3" src="{% static 'img/testimonials-1.jpg' %}" alt="">
-              <h5>Margaret E.</h5>
-              <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img class="img-fluid rounded-circle mb-3" src="{% static 'img/testimonials-2.jpg' %}" alt="">
-              <h5>Fred S.</h5>
-              <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of super nice landing pages."</p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img class="img-fluid rounded-circle mb-3" src="{% static 'img/testimonials-3.jpg' %}" alt="">
-              <h5>Sarah W.</h5>
-              <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to us!"</p>
+            <div class="testimonial-item mx-auto mb-5 mb-lg-0" style = "margin: auto">
+              <img class="rounded-circle mb-3" src="{% static 'img/minjung.jpeg' %}" alt="">
+              <h5>김민중</h5>
+              <p class="font-weight-light mb-0">"머리가 많이 아프네요"</p>
             </div>
           </div>
         </div>

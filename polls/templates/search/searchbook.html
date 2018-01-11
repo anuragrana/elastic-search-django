@@ -8,6 +8,14 @@
       <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
+             {% if users %}
+            {% for user in users %}
+              <h1>{{user.name}}님!</h1>
+            <h3>최근 검색어 : {{user.Lastsearch}}</h3>
+            <h1 class="mb-5"> 정보를 알고 싶은 영화 제목을 검색해보세요!</h1>
+        
+            {% endfor %}
+            {% endif %}
             <h1 class="mb-5"> 정보를 알고 싶은 책 제목을 검색해보세요!</h1>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
