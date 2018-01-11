@@ -1,8 +1,7 @@
 from django.db import models
 from .elastic_search_connection import MoviesearchIndex, BooksearchIndex, ProductsearchIndex #MovieinfoIndex
 from django.db.models import signals
-
-
+from django.utils import timezone
 
 #class Movie_info(models.Model):
 #  image_urls = models.CharField(max_length= 200)
@@ -33,7 +32,7 @@ from django.db.models import signals
 class Movie_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
-  date = models.DateField(auto_now_add=True)
+  date = models.DateField(default=timezone.now, blank=True)
 
 
   def indexing(self):
@@ -55,7 +54,7 @@ class Movie_search(models.Model):
 class Book_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
-  date =models.DateField(auto_now_add=True)
+  date =models.DateField(auto_now=True)
 
 
   def indexing(self):
@@ -76,7 +75,7 @@ class Book_search(models.Model):
 class Product_search(models.Model):
 
   keyword = models.CharField(max_length = 100, null=True)
-  date =models.DateField(auto_now_add=True)
+  date =models.DateField(auto_now=True)
 
 
   def indexing(self):
