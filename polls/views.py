@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .models import Movie_search, Book_search, Product_search, User # Movie_info,
 from django.contrib import messages
 
+
 count = True
 
 def search(request):
@@ -69,7 +70,7 @@ def search(request):
             context = {
                 'items':items
             }
-
+            request.session['flag'] = 0
             return render(request, 'search/index.html', context=context)
 
 def searchbook(request):
@@ -223,6 +224,7 @@ def signin(request):
             context = {
                 'users' : users
             }
+            count = False
             return render(request,'search/index.html',context)
         
         elif check_password is False : # email 은 일치, password는 불일치
@@ -232,14 +234,79 @@ def signin(request):
         messages.error(request,"존재하지 않는 이메일 입니다.")
     
     userdatas={'email' :input_email,'password':input_password}   
-    return render(request,'search/index.html',userdatas)
+    return render(request,'search/LoginPage.html',userdatas)
 
 def signout(request):
 
-     try:
-        del request.session['userid']
-    except KeyError:
-        pass
+    del request.session['userid']
+
+    if request.method == 'GET':
+
+        client_id = "DshukL7WQcANLYUiQTsY"
+        client_secret = "p5RxLlzjyJ"
+
+        q = request.GET.get('q')
+
+        if count is False:
+
+            
+            userid=request.session['userid']
+
+            if userid is True:
+                userdata = User.objects.filter(email=userid)
+                userdata.update(Lastproject=q)
+
+                movie_search = Movie_search(
+                    keyword = q,
+                    age = userdata.age,
+                    sex = userdata.sex,
+                )
+            else:
+                movie_search = Movie_search(
+                    keyword = q,
+                )
+            movie_search.save()
+
+        else:
+            movie_search = Movie_search(
+                    keyword = q,
+                )
+
+            movie_search.save()
+        encText = urllib.parse.quote("{}".format(q))
+        url = "https://openapi.naver.com/v1/search/movie?query=" + encText #json 결과
+        movie_api_request = urllib.request.Request(url)
+        movie_api_request.add_header("X-Naver-Client-Id", client_id)
+        movie_api_request.add_header("X-Naver-Client-Secret", client_secret)
+        response = urllib.request.urlopen(movie_api_request)
+        rescode = response.getcode()
+
+        if (rescode == 200):
+            response_body = response.read()
+            result = json.loads(response_body.decode('utf-8'))
+            items = result.get('items')
+            #print(result)
+
+            #movie_info = Movie_info(
+            #    title = items[0]['title'],
+            #    image_urls = items[0]['image'],
+            #    pub_date = items[0]['pubDate'],
+            #    director = items[0]['director'],
+            #    actor = items[0]['actor'],
+            #    userRating = items[0]['userRating'],)
+
+            #movie_info.save()
+
+            context = {
+                'items':items
+            }
+            count = True
+            return render(request, 'search/index.html', context=context)
+
+
+
+
+
 
 
 
