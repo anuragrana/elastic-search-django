@@ -28,6 +28,7 @@ from django.utils import timezone
  #   return movieinfoindex.to_dict(include_meta=True)
 
 class User(models.Model):
+  
     name = models.CharField(max_length=20)
     email = models.CharField(max_length=40)
     age = models.IntegerField()

@@ -12,37 +12,26 @@ def search(request):
 
     if request.method == 'GET':
 
+
         client_id = "DshukL7WQcANLYUiQTsY"
         client_secret = "p5RxLlzjyJ"
 
         q = request.GET.get('q')
         userid=request.session['userid']
-        if count is False:
+        userdata = User.objects.get(email=userid)
 
-            
-            
+        movie_search = Movie_search(
+                keyword = q,
+                age = userdata.age,
+                sex = userdata.sex,
+        )
 
-            if userid is True:
-                userdata = User.objects.filter(email=userid)
-                userdata.update(Lastproject=q)
+        userdata.lastproject=q
+        userdata.save()
 
-                movie_search = Movie_search(
-                    keyword = q,
-                    age = userdata.age,
-                    sex = userdata.sex,
-                )
-            else:
-                movie_search = Movie_search(
-                    keyword = q,
-                )
-            movie_search.save()
+        movie_search.save()
 
-        else:
-            movie_search = Movie_search(
-                    keyword = q,
-                )
-
-            movie_search.save()
+ 
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/movie?query=" + encText #json 결과
         movie_api_request = urllib.request.Request(url)
@@ -81,30 +70,22 @@ def searchbook(request):
     if request.method == 'GET':
         client_id = "DshukL7WQcANLYUiQTsY"
         client_secret = "p5RxLlzjyJ"
-        userid=request.session['userid']
+
         q = request.GET.get('q')
+        userid=request.session['userid']
+        userdata = User.objects.get(email=userid)
 
-        if count is False:
+        book_search = Book_search(
+                keyword = q,
+                age = userdata.age,
+                sex = userdata.sex,
+        )
 
+        userdata.lastproject=q
+        userdata.save()
 
-            if userid is True:
+        book_search.save()
 
-                
-                userdata = User.objects.filter(email=userid)
-                userdata.update(Lastproject=q)
-              
-                book_search = Book_search(
-                        keyword = q,
-                        age = userdata.age,
-                        sex = userdata.sex,
-                    )
-
-            else:
-                book_search = Book_search(
-                    keyword = q,
-                )
-
-            book_search.save()
 
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/book?query=" + encText #json 결과
@@ -133,31 +114,25 @@ def searchbook(request):
 def searchproduct(request):
 
     if request.method == 'GET':
+        
         client_id = "DshukL7WQcANLYUiQTsY"
         client_secret = "p5RxLlzjyJ"
 
         q = request.GET.get('q')
-
         userid=request.session['userid']
-        
-        if count is False:
+        userdata = User.objects.get(email=userid)
 
+        product_search = Product_search(
+                keyword = q,
+                age = userdata.age,
+                sex = userdata.sex,
+        )
 
-            if userid is True:
+        userdata.lastproject=q
+        userdata.save()
 
-                userdata = User.objects.filter(email=userid)
-                userdata.update(Lastproject=q)
+        product_search.save()
 
-                product_search = Product_search(
-                    keyword = q,
-                    age = userdata.age,
-                    sex = userdata.sex,
-                    )
-            else:
-                product_search = Product_search(
-                    keyword = q,
-                )
-            product_search.save()
 
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/shop?query=" + encText #json 결과
@@ -208,6 +183,7 @@ def signup(request) :
 
 
 def signin(request):
+    global count
     input_email = request.POST.get('email',None)
     input_password=request.POST.get('password',None)
     #signin.html에서 받은 값을 체크하고, 없는경우 None 으로 설정 해줍니다.
@@ -247,41 +223,26 @@ def signin(request):
 
 def signout(request):
 
-    del request.session['userid']
-
     if request.method == 'GET':
 
         client_id = "DshukL7WQcANLYUiQTsY"
         client_secret = "p5RxLlzjyJ"
 
         q = request.GET.get('q')
+        userid=request.session['userid']
+        userdata = User.objects.get(email=userid)
 
-        if count is False:
+        movie_search = Movie_search(
+                keyword = q,
+                age = userdata.age,
+                sex = userdata.sex,
+        )
 
-            
-            userid=request.session['userid']
+        userdata.Lastproject=q
+        userdata.save()
 
-            if userid is True:
-                userdata = User.objects.filter(email=userid)
-                userdata.update(Lastproject=q)
+        movie_search.save()
 
-                movie_search = Movie_search(
-                    keyword = q,
-                    age = userdata.age,
-                    sex = userdata.sex,
-                )
-            else:
-                movie_search = Movie_search(
-                    keyword = q,
-                )
-            movie_search.save()
-
-        else:
-            movie_search = Movie_search(
-                    keyword = q,
-                )
-
-            movie_search.save()
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/movie?query=" + encText #json 결과
         movie_api_request = urllib.request.Request(url)
