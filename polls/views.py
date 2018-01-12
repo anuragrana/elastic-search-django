@@ -209,7 +209,7 @@ def signin(request):
             context = {
                 'users' : users
             }
-            count = False
+      
             return render(request,'search/index.html',context)
         
         elif check_password is False : # email 은 일치, password는 불일치
@@ -228,27 +228,13 @@ def signout(request):
         client_id = "DshukL7WQcANLYUiQTsY"
         client_secret = "p5RxLlzjyJ"
 
-        q = request.GET.get('q')
-        userid=request.session['userid']
-        userdata = User.objects.get(email=userid)
-
-        movie_search = Movie_search(
-                keyword = q,
-                age = userdata.age,
-                sex = userdata.sex,
-        )
-
-        userdata.Lastproject=q
-        userdata.save()
-
-        movie_search.save()
-
+ 
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/movie?query=" + encText #json 결과
         movie_api_request = urllib.request.Request(url)
         movie_api_request.add_header("X-Naver-Client-Id", client_id)
         movie_api_request.add_header("X-Naver-Client-Secret", client_secret)
-        response = urllib.request.urlopen(movie_api_request)
+        response = urllib.request.urlopen(movie_ㄴpi_request)
         rescode = response.getcode()
 
         if (rescode == 200):
@@ -270,7 +256,7 @@ def signout(request):
             context = {
                 'items':items
             }
-            count = True
+      
             return render(request, 'search/index.html', context=context)
 
 
