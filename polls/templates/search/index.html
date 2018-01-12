@@ -11,11 +11,10 @@
             {% if users %}
             {% for user in users %}
               <h1>{{user.name}}님!</h1>
-           <h3>최근 검색어 : {{user.Lastsearch}}</h3>
-            <h1 class="mb-5"> 정보를 알고 싶은 영화 제목을 검색해보세요!</h1>
+              <h1 class="mb-5"> 정보를 알고 싶은 영화 제목을 검색해보세요!</h1>
+
             
-            {% endfor %}
-            {% endif %}
+          
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
             <form>
@@ -27,10 +26,16 @@
                 <div class="col-12 col-md-3">
                   <button type="submit" class="btn btn-block btn-lg btn-primary">Search</button>
                 </div>
+                <br>
+                 <h3>최근 검색어 : {{user.Lastsearch}}</h3>
+
                   </form>
               </div>
+
             </form>
           </div>
+          {% endfor %}
+          {% endif %}
         </div>
       </div>
     </header>

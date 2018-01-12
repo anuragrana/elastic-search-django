@@ -16,11 +16,11 @@ def search(request):
         client_secret = "p5RxLlzjyJ"
 
         q = request.GET.get('q')
-
+        userid=request.session['userid']
         if count is False:
 
             
-            userid=request.session['userid']
+            
 
             if userid is True:
                 userdata = User.objects.filter(email=userid)
@@ -67,10 +67,13 @@ def search(request):
 
             #movie_info.save()
 
+            users = User.objects.filter(email=userid)
+
             context = {
-                'items':items
+                'items':items,
+                'users' : users
             }
-            request.session['flag'] = 0
+
             return render(request, 'search/index.html', context=context)
 
 def searchbook(request):
@@ -78,12 +81,11 @@ def searchbook(request):
     if request.method == 'GET':
         client_id = "DshukL7WQcANLYUiQTsY"
         client_secret = "p5RxLlzjyJ"
-
+        userid=request.session['userid']
         q = request.GET.get('q')
 
         if count is False:
 
-            userid=request.session['userid']
 
             if userid is True:
 
@@ -117,8 +119,12 @@ def searchbook(request):
             result = json.loads(response_body.decode('utf-8'))
             items = result.get('items')
             #print(result)
+
+            users = User.objects.filter(email=userid)
+
             context = {
-                    'items':items
+                    'items':items,
+                    'users':users
             }
 
             return render(request, 'search/searchbook.html', context=context)
@@ -132,9 +138,10 @@ def searchproduct(request):
 
         q = request.GET.get('q')
 
+        userid=request.session['userid']
+        
         if count is False:
 
-            userid=request.session['userid']
 
             if userid is True:
 
@@ -165,9 +172,11 @@ def searchproduct(request):
             result = json.loads(response_body.decode('utf-8'))
             items = result.get('items')
             #print(result)
+            users = User.objects.filter(email=userid)
 
             context = {
-                    'items':items
+                    'items':items,
+                    'users':users
             }
 
             return render(request, 'search/searchproduct.html', context=context)
