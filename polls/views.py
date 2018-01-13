@@ -5,42 +5,40 @@ from django.shortcuts import render
 from .models import Movie_search, Book_search, Product_search, User # Movie_info,
 from django.contrib import messages
 
+
+
 def search(request):
 
-    if request.method == 'GET':
+    if request.method == 'GET': # 함수가 get방식인지 확인 하는 법
 
+        client_id = "DshukL7WQcANLYUiQTsY" # 네이버에서 받은 클라이언트 아이디 
+        client_secret = "p5RxLlzjyJ" # secret 넘버
 
-        client_id = "DshukL7WQcANLYUiQTsY"
-        client_secret = "p5RxLlzjyJ"
+        q = request.GET.get('q') # q에서 받아오기 
+        userid=request.session['userid']. #세션에 데이터 있는지 확인
+        userdata = User.objects.get(email=userid) # 아이디가 일치하는 유저 데이터 가져오기 
 
-        q = request.GET.get('q')
-        userid=request.session['userid']
-        userdata = User.objects.get(email=userid)
-
-        movie_search = Movie_search(
+        movie_search = Movie_search( # 검색 키워드 데이터 베이스에 저장
                 keyword = q,
                 age = userdata.age,
                 sex = userdata.sex,
         )
 
-        userdata.lastsearch=q
+        userdata.lastsearch=q # 유저의 마지막 검색어 데이터 저장
         userdata.save()
-
-        movie_search.save()
-
  
-        encText = urllib.parse.quote("{}".format(q))
-        url = "https://openapi.naver.com/v1/search/movie?query=" + encText #json 결과
+        encText = urllib.parse.quote("{}".format(q)) 
+        url = "https://openapi.naver.com/v1/search/movie?query=" + encText # url 입력하기 
         movie_api_request = urllib.request.Request(url)
         movie_api_request.add_header("X-Naver-Client-Id", client_id)
         movie_api_request.add_header("X-Naver-Client-Secret", client_secret)
-        response = urllib.request.urlopen(movie_api_request)
+        response = urllib.request.urlopen(movie_api_request) 
         rescode = response.getcode()
 
         if (rescode == 200):
             response_body = response.read()
             result = json.loads(response_body.decode('utf-8'))
-            items = result.get('items')
+            items = result.get('items') #받아온 데이터 변수에 저장
             #print(result)
 
             #movie_info = Movie_info(
@@ -159,6 +157,8 @@ def opensigninpage(request):
 def opensignuppage(request):
     return render(request,'search/SignUpPage.html')
 
+# 회원가입 하는 함수
+
 def signup(request) :
     name=request.POST['name']
     email=request.POST['email']
@@ -178,6 +178,7 @@ def signup(request) :
     userdatas={'userdatas':userdatas}
     return render(request,'search/index.html',userdatas)
 
+#로그인 하는 함수
 
 def signin(request):
     global count
@@ -218,6 +219,8 @@ def signin(request):
     userdatas={'email' :input_email,'password':input_password}   
     return render(request,'search/LoginPage.html',userdatas)
 
+# 로그아웃 하는 함수
+
 def signout(request):
 
     if request.method == 'GET':
@@ -239,17 +242,6 @@ def signout(request):
             response_body = response.read()
             result = json.loads(response_body.decode('utf-8'))
             items = result.get('items')
-            #print(result)
-
-            #movie_info = Movie_info(
-            #    title = items[0]['title'],
-            #    image_urls = items[0]['image'],
-            #    pub_date = items[0]['pubDate'],
-            #    director = items[0]['director'],
-            #    actor = items[0]['actor'],
-            #    userRating = items[0]['userRating'],)
-
-            #movie_info.save()
 
             context = {
                 'items':items
