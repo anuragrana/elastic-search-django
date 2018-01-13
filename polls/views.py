@@ -26,7 +26,7 @@ def search(request):
                 sex = userdata.sex,
         )
 
-        userdata.lastproject=q
+        userdata.lastsearch=q
         userdata.save()
 
         movie_search.save()
@@ -81,7 +81,7 @@ def searchbook(request):
                 sex = userdata.sex,
         )
 
-        userdata.lastproject=q
+        userdata.lastsearch=q
         userdata.save()
 
         book_search.save()
@@ -128,7 +128,7 @@ def searchproduct(request):
                 sex = userdata.sex,
         )
 
-        userdata.lastproject=q
+        userdata.lastsearch=q
         userdata.save()
 
         product_search.save()
@@ -228,13 +228,14 @@ def signout(request):
         client_id = "DshukL7WQcANLYUiQTsY"
         client_secret = "p5RxLlzjyJ"
 
+        q = request.GET.get('q')
  
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/movie?query=" + encText #json 결과
         movie_api_request = urllib.request.Request(url)
         movie_api_request.add_header("X-Naver-Client-Id", client_id)
         movie_api_request.add_header("X-Naver-Client-Secret", client_secret)
-        response = urllib.request.urlopen(movie_ㄴpi_request)
+        response = urllib.request.urlopen(movie_api_request)
         rescode = response.getcode()
 
         if (rescode == 200):
