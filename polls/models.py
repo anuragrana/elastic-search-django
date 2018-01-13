@@ -27,7 +27,7 @@ from django.utils import timezone
  #   movieinfoindex.save()
  #   return movieinfoindex.to_dict(include_meta=True)
 
-class User(models.Model):
+class User(models.Model):     #유저 정보 모델 필드 
   
     name = models.CharField(max_length=20)
     email = models.CharField(max_length=40)
@@ -40,15 +40,15 @@ class User(models.Model):
     def __str__(self):
         return self.name
 
-class Movie_search(models.Model):
+class Movie_search(models.Model):  #검색된 영화 키워드 모델 필드
 
   keyword = models.CharField(max_length = 100, null=True)
   date = models.DateField(default=timezone.now, blank=True)
   age = models.IntegerField(null = True)
   sex = models.CharField(max_length=5, null = True)
 
-
-  def indexing(self):
+ 
+  def indexing(self):  #데이터 베이스에 있는 데이터가 엘라스틱 서치로 데이터가 보내지는 함수
 
     movieinfosearch = MoviesearchIndex(
       meta = {
@@ -66,14 +66,14 @@ class Movie_search(models.Model):
 
 
 
-class Book_search(models.Model):
+class Book_search(models.Model):  #검색된 책 키워드 모델 필드
 
   keyword = models.CharField(max_length = 100, null=True)
   date =models.DateField(auto_now=True)
   age = models.IntegerField(null = True)
   sex = models.CharField(max_length=5,  null = True)
 
-  def indexing(self):
+  def indexing(self):  #데이터 베이스에 있는 데이터가 엘라스틱 서치로 데이터가 보내지는 함수
 
     bookinfosearch = BooksearchIndex(
       meta = {
@@ -90,14 +90,14 @@ class Book_search(models.Model):
     return bookinfosearch.to_dict(include_meta=True)
 
 
-class Product_search(models.Model):
+class Product_search(models.Model):  #검색된 제품 키워드 모델 필드
 
   keyword = models.CharField(max_length = 100, null=True)
   date =models.DateField(auto_now=True)
   age = models.IntegerField(null = True)
   sex = models.CharField(max_length=5, null = True)
 
-  def indexing(self):
+  def indexing(self): #데이터 베이스에 있는 데이터가 엘라스틱 서치로 데이터가 보내지는 함수
 
     productinfosearch = ProductsearchIndex(
       meta = {

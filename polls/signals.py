@@ -6,6 +6,7 @@ from django.dispatch import receiver
 #def index_movie_info(sender, instance, created,**kwargs):
 #	instance.indexing()
 
+# 데이터 베이스 저장 될 때에 저장된 데이터가 엘라스틱 서치로 날라가게 하는 트리거 설정(데이터 저장시 각 모델의 indexing() 함수 발동) 
 
 
 @receiver(post_save, sender= Movie_search)

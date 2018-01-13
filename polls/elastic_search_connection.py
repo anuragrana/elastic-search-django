@@ -18,31 +18,31 @@ connections.create_connection()
  #       index = 'movieinfo-index'
 
 
-class MoviesearchIndex(DocType):
+class MoviesearchIndex(DocType): # 검색된 영화 키워드 데이터 엘라스틱 서치 모델 필드
 	keyword = Text()
 	date = Date()
 	age = Integer()
 	sex = Text()
 
 	class Meta:
-		index = 'moviesearch-index'
+		index = 'moviesearch-index'  # 엘라스틱 서치로 넘어 갈떄 인덱스 이름
 
 
-class BooksearchIndex(DocType):
+class BooksearchIndex(DocType):  # 검색된 책 키워드 데이터 엘라스틱 서치 모델 필드
 	keyword = Text()
 	date = Date()
 	age = Integer()
 	sex = Text()
 
 	class Meta:
-		index = 'booksearch-index'
+		index = 'booksearch-index' # 엘라스틱 서치로 넘어 갈떄 인덱스 이름
 
 
-class ProductsearchIndex(DocType):
+class ProductsearchIndex(DocType):  # 검색된 제품 키워드 데이터 엘라스틱 서치 모델 필드
 	keyword = Text()
 	date = Date()
 	age = Integer()
 	sex = Text()
 
 	class Meta:
-		index = 'productsearch-index'
+		index = 'productsearch-index' # 엘라스틱 서치로 넘어 갈떄 인덱스 이름

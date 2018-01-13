@@ -5,9 +5,6 @@ from django.shortcuts import render
 from .models import Movie_search, Book_search, Product_search, User # Movie_info,
 from django.contrib import messages
 
-
-count = True
-
 def search(request):
 
     if request.method == 'GET':
