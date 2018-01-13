@@ -15,7 +15,7 @@ def search(request):
         client_secret = "p5RxLlzjyJ" # secret 넘버
 
         q = request.GET.get('q') # q에서 받아오기 
-        userid=request.session['userid']. #세션에 데이터 있는지 확인
+        userid=request.session['userid'] #세션에 데이터 있는지 확인
         userdata = User.objects.get(email=userid) # 아이디가 일치하는 유저 데이터 가져오기 
 
         movie_search = Movie_search( # 검색 키워드 데이터 베이스에 저장
@@ -151,6 +151,7 @@ def searchproduct(request):
 
             return render(request, 'search/searchproduct.html', context=context)
 
+
 def opensigninpage(request):
     return render(request,'search/LoginPage.html')
 
@@ -176,7 +177,7 @@ def signup(request) :
     
     userdatas=User.objects.all()
     userdatas={'userdatas':userdatas}
-    return render(request,'search/index.html',userdatas)
+    return render(request,'search/searchproduct.html',userdatas)
 
 #로그인 하는 함수
 
@@ -208,7 +209,7 @@ def signin(request):
                 'users' : users
             }
       
-            return render(request,'search/index.html',context)
+            return render(request,'search/searchproduct.html',context)
         
         elif check_password is False : # email 은 일치, password는 불일치
             messages.error(request,"비밀번호가 일치하지 않습니다.")
@@ -231,7 +232,7 @@ def signout(request):
         q = request.GET.get('q')
  
         encText = urllib.parse.quote("{}".format(q))
-        url = "https://openapi.naver.com/v1/search/movie?query=" + encText #json 결과
+        url = "https://openapi.naver.com/v1/search/shopping?query=" + encText #json 결과
         movie_api_request = urllib.request.Request(url)
         movie_api_request.add_header("X-Naver-Client-Id", client_id)
         movie_api_request.add_header("X-Naver-Client-Secret", client_secret)
@@ -247,7 +248,7 @@ def signout(request):
                 'items':items
             }
       
-            return render(request, 'search/index.html', context=context)
+            return render(request, 'search/searchproduct.html', context=context)
 
 
 
