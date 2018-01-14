@@ -182,7 +182,7 @@ def signup(request) :
 #로그인 하는 함수
 
 def signin(request):
-    global count
+
     input_email = request.POST.get('email',None)
     input_password=request.POST.get('password',None)
     #signin.html에서 받은 값을 체크하고, 없는경우 None 으로 설정 해줍니다.
@@ -225,6 +225,7 @@ def signin(request):
 def signout(request):
 
     if request.method == 'GET':
+        del request.session['userid']
 
         client_id = "DshukL7WQcANLYUiQTsY"
         client_secret = "p5RxLlzjyJ"
