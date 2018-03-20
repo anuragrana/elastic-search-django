@@ -1,0 +1,91 @@
+{% extends "search/base.html" %}
+
+{% block content %}
+{% load staticfiles %}
+    <!-- Masthead -->
+    <header class="masthead text-white text-center">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+      
+              <h1 class="mb-5"> 정보를 알고 싶은 영화 제목을 검색해보세요!</h1>
+
+            {% if users %}
+            {% for user in users %}
+              <h1>{{user.name}}님!</h1>
+          
+          </div>
+          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+            <form>
+              <div class="form-row">
+                <div class="col-12 col-md-9 mb-2 mb-md-0">
+                  <form action="{% url 'polls:api_search' %}" method="GET">       
+                    <input type="text" name="q" class="form-control form-control-lg" placeholder="Movie..">
+                </div>
+                <div class="col-12 col-md-3">
+                  <button type="submit" class="btn btn-block btn-lg btn-primary">Search</button>
+                </div>
+                
+                <br>
+                 <h3>최근 검색어 : {{user.lastsearch}}</h3>
+
+                  </form>
+              </div>
+
+            </form>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </header>
+
+    <!-- Icons Grid -->
+    <section class="features-icons bg-light text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                <!--<a href="/search"><i><img class="img-fluid rounded-circle mb-3 transparency" src="{% static 'img/movie.jpg' %}" alt=""></i></a>
+              <h2>MOVIE</h2>-->
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                <a href="/searchproduct"><i><img class="img-fluid rounded-circle mb-3 transparency" src="{% static 'img/shopping.jpg' %}" alt=""></i></a>
+              <h2>SHOPPING</h2>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                <!--<a href="/searchproduct"><i><img class="img-fluid rounded-circle mb-3 transparency" src="{% static 'img/shopping.jpg' %}" alt=""></i></a>
+              <h2>SHOPPING</h2>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image Showcases -->
+    <section class="showcase">
+      <div class="container-fluid p-0">
+        {% for item in items %}
+        <div class="row no-gutters">
+
+          <div class="col-lg-6 order-lg-2 text-white showcase-image"><img src="{{item.image}}" alt="" width="264" height="360"></div>
+          <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+            <h2>{{forloop.counter}}. {{ item.title|safe }}</h2>
+            <p class="lead mb-0">{{item.pubDate}}<br> 감독 : {{ item.director }}<br> 출연 배우 : {{ item.actor }}<br> 평점 : {{ item.userRating }}<br><br>
+            <div class="col-12 col-md-3" >
+               <a type = "button"  href="{{item.link}}" class="btn btn-block btn-lg btn-primary">Detail</a>
+            </div>
+            </p>
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+{% endblock %}
